@@ -1,0 +1,42 @@
+@page
+@model Gestor_Libros_EF.Pages.Books.CreateModel
+@{
+    ViewData["Title"] = "Nuevo libro";
+}
+
+<h2 class="mb-4">Nuevo libro</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<form method="post" style="max-width:500px">
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+        <input asp-for="Book.Title" class="form-control" />
+        <span asp-validation-for="Book.Title" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Autor</label>
+        <input asp-for="Book.Author" class="form-control" />
+        <span asp-validation-for="Book.Author" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Género</label>
+        <input asp-for="Book.Genre" class="form-control" />
+        <span asp-validation-for="Book.Genre" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Año publicado</label>
+        <input asp-for="Book.YearPublished" type="number" class="form-control" />
+        <span asp-validation-for="Book.YearPublished" class="text-danger small"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea asp-for="Book.Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Book.Description" class="text-danger small"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="/Books" class="btn btn-secondary ms-2">Cancelar</a>
+</form>

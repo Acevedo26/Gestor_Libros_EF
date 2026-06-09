@@ -1,0 +1,16 @@
+@page "{id:int}"
+@model Gestor_Libros_EF.Pages.Books.DeleteModel
+@{
+    ViewData["Title"] = "Eliminar libro";
+}
+
+<h2 class="mb-4">Eliminar libro</h2>
+
+<div class="alert alert-warning" style="max-width:500px">
+    ¿Estás seguro de que quieres eliminar <strong>@Model.Book?.Title</strong>?
+</div>
+
+<form method="post" style="max-width:500px">
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="/Books" class="btn btn-secondary ms-2">Cancelar</a>
+</form>

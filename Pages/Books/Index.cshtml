@@ -1,0 +1,53 @@
+@page
+@model Gestor_Libros_EF.Pages.Books.IndexModel
+@{
+    ViewData["Title"] = "Libros";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Libros</h2>
+    <a href="/Books/Create" class="btn btn-primary">+ Nuevo libro</a>
+</div>
+
+<form method="get" class="d-flex mb-4 gap-2">
+    <input type="text" name="title" value="@Model.SearchTitle" class="form-control" placeholder="Buscar por título..." />
+    <button class="btn btn-outline-secondary">Buscar</button>
+    @if (!string.IsNullOrEmpty(Model.SearchTitle))
+    {
+        <a href="/Books" class="btn btn-outline-danger">✕</a>
+    }
+</form>
+
+@if (!Model.Books.Any())
+{
+    <p class="text-muted">No se encontraron libros.</p>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Género</th>
+                <th>Año</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.Books)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.Genre</td>
+                    <td>@book.YearPublished</td>
+                    <td class="text-end">
+                        <a href="/Books/Edit/@book.Id" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="/Books/Delete/@book.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
