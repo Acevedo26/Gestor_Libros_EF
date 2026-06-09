@@ -27,10 +27,9 @@ Gestor_Libros_EF/
 
 ## Requisitos previos
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)
+- [.NET 8 SDK]
 - SQL Server (local o remoto)
-- [Entity Framework CLI](https://learn.microsoft.com/en-us/ef/core/cli/dotnet)
-
+- [Entity Framework CLI]
 ```bash
 dotnet tool install --global dotnet-ef
 ```
