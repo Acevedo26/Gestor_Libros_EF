@@ -110,8 +110,8 @@ El sistema carga automáticamente los siguientes libros al iniciar por primera v
 
 | Título | Autor | Género | Año |
 |--------|-------|--------|-----|
-| Cien años de soledad | Gabriel García Márquez | Realismo mágico | 1967 |
-| Don Quijote de la Mancha | Miguel de Cervantes | Novela | 1605 |
-| 1984 | George Orwell | Distopía | 1949 |
-| El principito | Antoine de Saint-Exupéry | Fábula | 1943 |
-| Crimen y castigo | Fiódor Dostoyevski | Novela psicológica | 1866 |
+| Clean Code | Robert C. Martin | Programación | 2008 |
+| The Pragmatic Programmer | Andrew Hunt, David Thomas | Ingeniería de Software | 1999 |
+| Design Patterns | Gang of Four | Arquitectura de Software | 1994 |
+| The Mythical Man-Month | Frederick P. Brooks | Gestión de Software | 1975 |
+| Introduction to Algorithms | Cormen, Leiserson, Rivest, Stein | Algoritmos | 2009 |
