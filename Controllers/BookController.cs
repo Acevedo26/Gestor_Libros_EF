@@ -23,64 +23,106 @@ namespace Gestor_Libros_EF.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookDTO>>> GetAllBooks()
         {
-            var books = await _bookService.GetAllBooksAsync();
-            return Ok(books);
+            try
+            {
+                var books = await _bookService.GetAllBooksAsync();
+                return Ok(books);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener los libros: {ex.Message}");
+            }
         }
 
         // GET: api/book/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<BookDTO>> GetBookById(int id)
         {
-            var book = await _bookService.GetBookByIdAsync(id);
-            if (book == null)
-                return NotFound();
-            return Ok(book);
+            try
+            {
+                var book = await _bookService.GetBookByIdAsync(id);
+                if (book == null)
+                    return NotFound($"Libro con ID {id} no encontrado.");
+                return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener el libro: {ex.Message}");
+            }
         }
 
-        //GET: api/book/search?title=algo
+        // GET: api/book/search?title=algo
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<BookDTO>>> SearchBooks([FromQuery] string title)
         {
-            var books = await _bookService.SearchBooksByTitleAsync(title);
-            return Ok(books);
+            if (string.IsNullOrWhiteSpace(title))
+                return BadRequest("El parámetro 'title' es requerido.");
+            try
+            {
+                var books = await _bookService.SearchBooksByTitleAsync(title);
+                return Ok(books);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al buscar libros: {ex.Message}");
+            }
         }
 
         // POST: api/Book
         [HttpPost]
         public async Task<ActionResult> AddBook([FromBody] BookDTO bookDTO)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            await  _bookService.AddBookAsync(bookDTO);
-            return CreatedAtAction(nameof(GetBookById), new { id = bookDTO.Id }, bookDTO);
-
+            try
+            {
+                var added = await _bookService.AddBookAsync(bookDTO);
+                if (!added)
+                    return Conflict("Ya existe un libro con ese título.");
+                return CreatedAtAction(nameof(GetBookById), new { id = bookDTO.Id }, bookDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al agregar el libro: {ex.Message}");
+            }
         }
 
         // PUT: api/book/{id}
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateBook(int id, [FromBody] BookDTO bookDTO)
         {
-            if(id != bookDTO.Id) 
-                return BadRequest("ID de libro no coincide");
-
+            if (id != bookDTO.Id)
+                return BadRequest("El ID de la ruta no coincide con el ID del libro.");
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var updated = await _bookService.UpdateBookAsync(bookDTO);
-            if (!updated)
-                return NotFound("Libro no encontrado");
-            return NoContent();
+            try
+            {
+                var updated = await _bookService.UpdateBookAsync(bookDTO);
+                if (!updated)
+                    return NotFound($"Libro con ID {id} no encontrado.");
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar el libro: {ex.Message}");
+            }
         }
 
         // DELETE: api/book/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteBook(int id)
         {
-            var deleted = await _bookService.DeleteBookAsync(id);
-            if (!deleted)
-                return NotFound("Libro no encontrado");
-            return NoContent();
+            try
+            {
+                var deleted = await _bookService.DeleteBookAsync(id);
+                if (!deleted)
+                    return NotFound($"Libro con ID {id} no encontrado.");
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al eliminar el libro: {ex.Message}");
+            }
         }
 
         
