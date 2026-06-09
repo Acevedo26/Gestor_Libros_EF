@@ -41,6 +41,7 @@ namespace Gestor_Libros_EF.Services
             var books = await  _bookRepository.GetAllAsync();
             return books.Select(b => new BookDTO
             {
+                Id = b.Id,
                 Title = b.Title,
                 Author = b.Author,
                 Description = b.Description,
@@ -56,6 +57,7 @@ namespace Gestor_Libros_EF.Services
 
             return new BookDTO
             {
+                Id = book.Id,
                 Title = book.Title,
                 Author = book.Author,
                 Description = book.Description,
@@ -71,6 +73,7 @@ namespace Gestor_Libros_EF.Services
 
             return books.Select(b => new BookDTO
             {
+                Id = b.Id,
                 Title = b.Title,
                 Author = b.Author,
                 Description = b.Description,
